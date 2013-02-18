@@ -70,11 +70,12 @@
     return self;
 }
 
-- (BOOL)setObject:(id<NSCoding>)object forKey:(id<NSCopying>)key
+- (BOOL)setObject:(id<NSCoding>)object forKey:(id<NSCopying>)key lockToDevice:(BOOL)lockToDevice;
 {
     //generate query
     NSMutableDictionary *query = [NSMutableDictionary dictionary];
     if ([_service length]) query[(__bridge NSString *)kSecAttrService] = _service;
+    query[(__bridge NSString*)kSecAttrAccessible] = (__bridge id)(lockToDevice ? kSecAttrAccessibleWhenUnlockedThisDeviceOnly : kSecAttrAccessibleWhenUnlocked);
     query[(__bridge NSString *)kSecClass] = (__bridge id)kSecClassGenericPassword;
     query[(__bridge NSString *)kSecAttrAccount] = key;
     
@@ -122,12 +123,12 @@
 
 - (BOOL)setObject:(id<NSCoding>)object forKeyedSubscript:(id<NSCopying>)key
 {
-    return [self setObject:object forKey:key];
+    return [self setObject:object forKey:key lockToDevice:NO];
 }
 
 - (BOOL)removeObjectForKey:(id<NSCopying>)key
 {
-    return [self setObject:nil forKey:key];
+    return [self setObject:nil forKey:key lockToDevice:NO];
 }
 
 - (id)objectForKey:(id<NSCopying>)key

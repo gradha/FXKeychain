@@ -45,7 +45,7 @@
 - (id)initWithService:(NSString *)service
           accessGroup:(NSString *)accessGroup;
 
-- (BOOL)setObject:(id<NSCoding>)object forKey:(id<NSCopying>)key;
+- (BOOL)setObject:(id<NSCoding>)object forKey:(id<NSCopying>)key lockToDevice:(BOOL)lockToDevice;
 - (BOOL)setObject:(id<NSCoding>)object forKeyedSubscript:(id<NSCopying>)key;
 - (BOOL)removeObjectForKey:(id<NSCopying>)key;
 - (id)objectForKey:(id<NSCopying>)key;
